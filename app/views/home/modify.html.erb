@@ -1,0 +1,61 @@
+<!-- 주소검색기 --> 
+   	<!-- jquery 가 필요합니다. --> 
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
+	
+	<!-- roadzip.min.js -->
+	<!-- roadzip.min.js 을 이용하려면 jquery ui 가 필요합니다. -->
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css" />
+	
+	
+	<!-- ssl 대응 됩니다. cdn 이용하듯 서버에 저장하지 말고 그대로 링크하세요.
+		예고 없이 스크립트가 변경될 수 있으며, 저장할 경우 호환되지 않을 수 있습니다.
+		이곳에 적혀 있는 이용방법대로만 이용해주세요. -->
+	<link rel="stylesheet" href="//xenosi.de/load/roadzip/roadzip.css" />
+	<script src="//xenosi.de/load/roadzip/roadzip.min.js"></script> 
+
+	<script>
+	$(function() {
+		$('input.XenoFindZip').each(XenoZipFinder); // input 에 검색스크립트 연결
+	});
+	</script>
+          
+          
+          
+    <h1>수정하는 페이지 입니다.</h1>
+<form action="/home/update/<%= @one_adr.id %>" method="POST" style="font-family: Garamond, serif;">
+    <tr>
+		<td>tilte</td>
+		<td><input type="text" name="new_title"  value="<%= @one_adr.adr_title %>"></td>
+	</tr><br>
+	
+	<label>
+		<input type="text" class="XenoFindZip" placeholder="엔터를 누르면 검색됩니다." data-z="zip" data-a="ad" data-r="adr" data-e="ade" data-n="n">
+		<span class="XenoFindZipLabel"></span>
+	</label>
+		
+	<table><!-- 사용하지 않는 필드는 생략해도 오류나지 않습니다. -->
+		<tbody>
+
+			<tr>
+				<td>우편번호</td>
+				<td><input type="text" name="new_zip" value="<%= @one_adr.adr_zip %>"></td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td><input type="text" class="addr" name="new_ad" value="<%= @one_adr.adr_ad %>"></td> 
+			</tr>
+			<tr>
+				<td>상세주소</td>
+				<td><input type="text" class="addr" name="new_adr" value="<%= @one_adr.adr_adr %>"></td>
+			</tr>
+			<tr>
+			    <td>방 정보</td>
+			    <td><textarea rows="4" cols="50" name="new_content" value="<%= @one_adr.adr_content %>" ></textarea></td>
+			</tr>
+		</tbody>
+	</table>
+    <input type="submit" value="확인">
+</form>
+

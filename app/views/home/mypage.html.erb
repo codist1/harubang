@@ -1,0 +1,10 @@
+<br>
+<h4>ID : <%=  current_user.email %> </h4>
+<br>
+<h4>내가 작성한 글</h4>    
+
+<% @adrs.each do |p| %>
+    <% if (p.adr_email == current_user.email) %>
+        <a href="/home/detail/<%=p.id%>"><p> <%= p.adr_title%> </p></a>
+    <% end %>
+<% end %>

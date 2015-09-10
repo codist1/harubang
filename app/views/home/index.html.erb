@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>하루방</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+<!--------------------------------------------------------------------------------------->	
+	<!-- $$$css bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+
+</head>
+<body>
+<div class="wrap">
+    <div class="top-menu">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <% if user_signed_in? %>
+              <li role="presentation"><a href="/home/index">승계찾기</a></li>
+              <li role="presentation"><a id="dLabel" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                        방 등록
+                                        <span class="caret"></span>
+                                      </a>
+                                    
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <a href="/home/enroll_1">승계등록</a><br>
+                                        <a href="#">임대등록</a>
+                                      </ul>
+                                    </li>
+              <li role="presentation"><a href="#" style="color: black; text-decoration: none;"><%= current_user.email %></a></li>
+              <li role="presentation"><a href="/home/mypage/<%=current_user.id%>">My page</a></li>
+              <li role="presentation"><a href="/users/sign_out">Log Out</a></li><p>
+            <% else %>
+              <li role="presentation"><a href="/home/index">승계찾기</a></li>
+              <li role="presentation"><a id="dLabel" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                        방 등록
+                                        <span class="caret"></span>
+                                      </a>
+                                    
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <a href="/home/enroll_1">승계등록</a><br>
+                                        <a href="#">임대등록</a>
+                                      </ul>
+                                    </li>
+              <li role="presentation" id="bdslogin"><a href="/users/sign_in">Log in</a></li>
+              <li role="presentation" id="bdslogin"><a href="/users/sign_up">Sing Up</a></li>
+            <% end %>
+          </ul>
+          
+          <strong><h2 class="text-muted" style="font-family:Gungsuh; Color:black; "><a href="/" style="">하루방</a></h2></strong>
+        </nav>
+    </div>
+ 
+
+    <div class="col-md-8 nopadding">
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByHokvBS1FBcs14AimhJq4ovtzFxH6lkU" type="text/javascript"></script>
+      <!-- GoogoleMap Asynchronously Loading the API ********************************************* -->
+      <script type="text/javascript">
+              var mapOptions = {
+                  zoom: 15, // 지도를 띄웠을 때의 줌 크기
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+          
+         $(function initialize() {
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions); // div의 id과 값이 같아야 함. "map-canvas"
+              var size_x = 40; // 마커로 사용할 이미지의 가로 크기
+              var size_y = 40; // 마커로 사용할 이미지의 세로 크기
+              // 마커로 사용할 이미지 주소
+              var image = new google.maps.MarkerImage( 'http://www.happyjung.com/sample/marker.png',
+                                                          new google.maps.Size(size_x, size_y),
+                                                          '',
+                                                          '',
+                                                          new google.maps.Size(size_x, size_y));
+      var address = '경상북도 경산시 대학로 280'; // DB에서 주소 가져와서 검색하거나 왼쪽과 같이 주소를 바로 코딩.
+      var marker = null;
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      } else {
+      alert("Geocode was not successful for the following reason: " + status);
+      }
+      
+      document.getElementById('submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map);
+      })
+      });
+              <% @adrs.reverse_each do |p| %>
+              // Geocoding *****************************************************
+              var address = '<%= p.adr_ad %>'; // DB에서 주소 가져와서 검색하거나 왼쪽과 같이 주소를 바로 코딩.
+              var marker = null;
+      
+              var geocoder = new google.maps.Geocoder();
+              geocoder.geocode( { 'address': address}, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                      map.setCenter(results[0].geometry.location);
+                      marker<%= p.id%> = new google.maps.Marker({
+                          map: map,
+                          icon: 'http://www.happyjung.com/sample/marker.png', // 마커로 사용할 이미지(변수)
+                          title: '<%= p.adr_title %>', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+                          position: results[0].geometry.location
+                      });
+                  var content =  document.createElement("span");
+                                 content.innerHTML = "<%= p.adr_title %> <br> <%= p.adr_content %>"; // 말풍선 안에 들어갈 내용
+                                  // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+                  var infowindow<%= p.id%> = new google.maps.InfoWindow({ content: content});
+                      google.maps.event.addListener(marker<%= p.id%>, "click", function() {infowindow<%= p.id%>.open(map,marker<%= p.id%>);});
+                       // 상세정보 마우스오버시 말풍선
+                        $(function(){
+                          $("#de_<%=p.id%>").hover(
+                            function() {
+                              infowindow<%= p.id%>.open(map,marker<%= p.id%>);
+                            },
+                            function() {
+                              infowindow<%= p.id%>.close(map,marker<%= p.id%>);
+                            });
+                        });
+                  } else {
+                  
+                  }
+                  document.getElementById('submit').addEventListener('click', function() {
+              geocodeAddress(geocoder, map);
+              })
+              });
+              
+              // Geocoding // *****************************************************
+               <% end %>
+              google.maps.event.addDomListener(window, 'load', initialize);
+              });
+              
+              
+          function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+              resultsMap.setCenter(results[0].geometry.location);
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+      </script>
+      
+      <div id="map-canvas" style="width: 100%; height: 715px" title="승계!"></div>
+    </div>
+
+
+    <div class="col-md-4 nopadding box-shadow">  
+
+      <div class="center">
+            
+          <div class="submenu">지도 검색</div>
+         
+          <div id="panel">
+                                              <!-- 주소검색기 --> 
+                                     	<!-- jquery 가 필요합니다. --> 
+                                  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+                                  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
+                                  	
+                                  	<!-- roadzip.min.js -->
+                                  	<!-- roadzip.min.js 을 이용하려면 jquery ui 가 필요합니다. -->
+                                  	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+                                  	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css" />
+                                  	
+                                  	
+                                  	<!-- ssl 대응 됩니다. cdn 이용하듯 서버에 저장하지 말고 그대로 링크하세요.
+                                  		예고 없이 스크립트가 변경될 수 있으며, 저장할 경우 호환되지 않을 수 있습니다.
+                                  		이곳에 적혀 있는 이용방법대로만 이용해주세요. -->
+                                  	<link rel="stylesheet" href="//xenosi.de/load/roadzip/roadzip.css" />
+                                  	<script src="//xenosi.de/load/roadzip/roadzip.min.js"></script> 
+                                  
+                                  	<script>
+                                  	$(function() {
+                                  		$('input.XenoFindZip').each(XenoZipFinder); // input 에 검색스크립트 연결
+                                  	});
+                                  	</script>
+              <form>
+                <div style="padding-top: 3px; padding-bottom: 3px;">
+                <input class="XenoFindZip" type="textbox" id="address" name="addr" placeholder="주소를 검색해주세요">
+                <span class="XenoFindZipLabel" style="display:none;"></span>
+                
+                <input id="submit" type="button" value="검색">
+                </div>
+              </form>
+      </div>
+          
+          <div class="submenu">방 정보</div>
+      </div>   
+
+      <div>
+        <% @adrs.reverse_each do |p| %>
+        <a class="hvr-shutter-out-horizontal top-menu" href="/home/detail/<%=p.id%>">
+          <div id="de_<%=p.id%>">
+            <img src="<%= p.my_image.thumb %>"  align="left">
+            <p><%=p.adr_title%></p>
+            <p>작성자 : <%=p.adr_email%></p>
+            <p>주소 : <%=p.adr_ad%></p>
+            <p>상세 정보 : <%=p.adr_content%></p>
+          </div>
+          </a>
+        <% end %>
+      </div>
+    </div>
+
+  
+<% if flash[:msg] %> 
+<script>
+  alert("<%= flash[:msg] %>")
+</script>
+<% end %>
+</div>
+</body>
+</html>

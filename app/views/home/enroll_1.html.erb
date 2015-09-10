@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+  		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<!-- 다운로드받지 마시고 CDN 이용하듯 이대로 링크하세요. API 의 버그 수정 등의 변화를 일일히 적용할 필요가 없습니다. ssl 대응되므로 url 을 수정하지 마세요. -->
+		<script src="//xeno.work/roadzip/roadzip.min.js"></script>
+		
+		
+		       <%= form_tag "/home/write", multipart: true, method: "post" do %>
+		<!-- input name 변경 예제 -->
+		<form>
+		<table class="type09">
+		    <thead>
+		    <tr>
+		        <th scope="cols">항목</th>
+		        <th scope="cols">승계등록</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <tr>
+		        <th scope="row">제목</th>
+		        <td><input  style="width:393px;" type="text" name="title" placeholder="제목을 입력하세요(ex.3개월 남은 자취방 승계합니다.)"></td>
+		    </tr>
+		    <tr>
+		        <th scope="row">작성자</th>
+		        <td><input class="fakey"  disabled="disabled" style="border: none; outline: none; background-color: white;" name="email" value="<%= current_user.email %>"></td>
+		    </tr>
+
+		    					    </tbody>
+		</table>
+		    
+		    <!-- Modal -->
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">주소 찾기</h4>
+		      </div>
+		      <div class="modal-body">
+		
+			<input type="text" style="width:478px;" class="XenoZipFinder" placeholder="건물명, 동 번지 등 짧게 검색하세요." data-z="zip" data-a="ad" data-r="adrr" data-e="ade" data-n="n">
+			<table>
+				   <tbody>
+						<tr>
+							<td>우편번호</td>
+							<td><input type="text" style="width:100px;" name="zip" required></td>
+						</tr>
+						<tr>
+							<td>주소</td>
+							<td><input type="text" style="width:478px;" class="addr" name="ad"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- form 아래쪽에 적용하면 되고, head 에 넣을경우 $(function() {}); 로 감싸세요. -->
+					<script>
+						$('input.XenoZipFinder').each(XenoZipFinder);
+					</script>
+		      </div>
+		      <div class="modal-footer">
+		
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+
+		<table class="type09">
+
+		    <tr>
+		        <th scope="row">우편번호</th>
+		        <td><input type="text" style="width:100px;" name="zip" required  placeholder="신 우편번호는 직접 입력하셔야 합니다.">
+		        <!-- Button trigger modal -->
+		        	<button type="button" data-toggle="modal" data-target="#myModal" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off"> 우편번호 찾기</button>
+		        </td>
+		    </tr>
+		    <tr>
+		        <th scope="row">주소</th>
+		        <td><input type="text" style="width:373px;" class="addr" name="ad" placeholder="주소찾기를 통해 쉽게 작성하실수 있습니다.">
+		        </td>
+		    </tr>
+		    <tr>
+		        <th scope="row">상세주소</th>
+		        <td><input type="text" style="width:373px;" class="addr" name="adr" placeholder="건물이름, 동, 호수 등을 적어주세요" required></td>
+		    </tr>
+		    <tr>
+		        <th scope="row">방정보</th>
+		        <td><textarea rows="4" cols="50" name="content" placeholder="방 크기, 생활시 유의점(ex. 물이 너무 세게 나온다 등), 계약 내용(ex. 보증금 XX만원, 월세 XX만원), 가구 유무 등." ></textarea></td>
+		    </tr>
+		    <tr>
+		        <th scope="row">방사진</th>
+		        <td><input type="file" name="image_file" ></td>
+		    </tr>
+		    <tr>
+		        <th scope="row">욕실사진</th>
+		        <td><input type="file" name="image_file" ></td>
+		    </tr>
+		    <tr>
+		        <th scope="row">기타사진</th>
+		        <td><input type="file" name="image_file" ></td>
+		    </tr>
+		    </tbody> 
+		</table> 
+		<input type="submit" value="방등록" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+
+		<script>
+		  $('#myButton').on('click', function () {
+		    var $btn = $(this).button('loading')
+		    // business logic...
+		    $btn.button('reset')
+		  })
+		</script>
+			
+		
+		<%end%>
+		  </div>
+	<div class="col-md-3"></div>
+</div>
+
+
+
+
+
+
+
+
+<style>
+    table.type09 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    margin: 30px;
+
+}
+table.type09 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.type09 tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.type09 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+</style>
