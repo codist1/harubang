@@ -2,9 +2,8 @@
   <div class="col-md-3"></div>
   <div class="col-md-6">
 
-		       <%= form_tag "/home/update_2/<%= @one_adr.id %>", multipart: true, method: "post" do %>
+       <%= form_tag(:controller => "home", :action => "update_2", :id => @one_adr.id) do %>
 		<!-- input name 변경 예제 -->
-		<form>
 		<table class="type09">
 		    <thead>
 		    <tr>
@@ -12,6 +11,7 @@
 		        <th scope="cols">임대등록</th>
 		    </tr>
 		    </thead>
+		    
 		    <tbody>
 		    <tr>
 		        <th scope="row">제목</th>
@@ -23,10 +23,10 @@
 		    </tr>
 		    <tr>
 		        <th scope="row">프로필 사진</th>
-		        <td><input type="file" name="new_image_file_f" value="<%= @one_adr.image_file_f %>" ></td>
+		        <td><input type="file" name="new_image_file_f" ></td>
 		    </tr>
 
-		    					    </tbody>
+		    </tbody>
 		</table>
 		    
 		    <!-- Modal -->
@@ -67,7 +67,6 @@
 		
 
 		<table class="type09">
-
 		    <tr>
 		        <th scope="row">우편번호</th>
 		        <td><input type="text" style="width:100px;" name="new_zip" required   value="<%= @one_adr.adr2_zip %>">
@@ -90,15 +89,15 @@
 		    </tr>
 		    <tr>
 		        <th scope="row">방사진</th>
-		        <td><input type="file" name="new_image_file" value="<%= @one_adr.my2_image %>" ></td>
+		        <td><input type="file" name="new_image_file" ></td>
 		    </tr>
 		    <tr>
 		        <th scope="row">욕실사진</th>
-		        <td><input type="file" name="new_image_file2" value="<%= @one_adr.my2_image2 %>" ></td>
+		        <td><input type="file" name="new_image_file2"  ></td>
 		    </tr>
 		    <tr>
-		        <th scope="row">기타사진</th>
-		        <td><input type="file" name="new_image_file3" value="<%= @one_adr.my2_image3 %>" ></td>
+		        <th scope="row">기타ㅉ사진</th>
+		        <td><input type="file" name="new_image_file3"  ></td>
 		    </tr>
 		    </tbody> 
 		</table> 
@@ -111,10 +110,9 @@
 		    $btn.button('reset')
 		  })
 		</script>
-			
-		
-		<%end%>
-		  </div>
+		  
+       <% end %>
+	</div>
 	<div class="col-md-3"></div>
 </div>
 
@@ -127,35 +125,3 @@
 
 
 
-
-
-<style>
-    table.type09 {
-    border-collapse: collapse;
-    text-align: left;
-    line-height: 1.5;
-    margin: 30px;
-
-}
-table.type09 thead th {
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    color: #369;
-    border-bottom: 3px solid #036;
-}
-table.type09 tbody th {
-    width: 150px;
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    border-bottom: 1px solid #ccc;
-    background: #f3f6f7;
-}
-table.type09 td {
-    width: 350px;
-    padding: 10px;
-    vertical-align: top;
-    border-bottom: 1px solid #ccc;dd
-}
-</style>

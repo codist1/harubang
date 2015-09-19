@@ -3,7 +3,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
       #내가 만든것
       t.string :name,               null: false, default: ""
-      t.string :number,             null: false, default: ""
+      t.string :nickname,             null: false, default: ""
        
       ## Database authenticatable
       t.string :email,              null: false, default: ""

@@ -1,11 +1,14 @@
 <br>
-<h4>ID : <%=  current_user.email %> </h4>
-<h4>Name: <%= current_user.name %> </h4>
-<h4>Number: <%= current_user.number %> </h4>
-<h4></h4>
-<h4></h4>
+<h4>ID : <%= current_user.email %> </h4>
+<h4>Name : <%= current_user.name %></h4>
+<h4>Number : <%= current_user.nickname %> </h4>
+<!--<h4>Name : <%= current_user.inspect %></h4>-->
+
+
+
 <%= link_to '정보수정', edit_user_registration_path %>
 <br>
+
 <h4>내가 작성한 글</h4>    
 승계
 <% @adrs.each do |p| %>

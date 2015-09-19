@@ -1,47 +1,24 @@
-       <div id="cntnr_1" class="container">
-             <a href="/foo1">foo1</a>
-             <a href="/foo2">foo2</a>
-             <a href="/foo3">foo3</a>
-        </div>
-        <div id="cntnr_2" class="container">
-             <a href="/foobar1">foobar1</a>
-             <a href="/foobar2">foobar2</a>
-             <a href="/foobar3">foobar3</a>
-        </div>
-        <script type="text/javascript">
-        $().ready(function(){
-            //display the url of the clicked on link
-            //display the id of the container whose href was clicked on     
-        });
-        
-        $('.container a').click(function(e){
-    e.preventDefault();
-    var url = $(this).attr('href');
-    var container_id = $(this).parents('.page_container:first').attr('id');
-    alert('the url is "'+ url +'" from the container #' + id);
-});
-        </script>
-        
-        
-        
-<div id="myCarousel" class="carousel slide">
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <!-- 회전광고판 항목 -->
-  <div class="carousel-inner">
-    <div class="active item"><img src="<%=@tail.my_image.thumb3 %>"></div>
-    <div class="item"><img src="<%=@tail.my_image2.thumb3 %>"></div>
-    <div class="item"><img src="<%=@tail.my_image3.thumb3 %>"></div>
-  </div>
-  <!-- 회전광고판 탐색 -->
-  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-</div>
 
-<div id="map-canvas" style="width: 100%; height: 570px" title="지도"></div>
+
+<div style="width: 600px; height: 386px">        
+  <div id="myCarousel" class="carousel slide" style="width: 600px; height: 100%">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- 회전광고판 항목 -->
+    <div class="carousel-inner">
+      <div class="active item"><img src="<%=@tail.my_image.thumb3 %>"></div>
+      <div class="item"><img src="<%=@tail.my_image2.thumb3 %>"></div>
+      <div class="item"><img src="<%=@tail.my_image3.thumb3 %>"></div>
+    </div>
+    <!-- 회전광고판 탐색 -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+</div>
+<div id="map-canvas" style="width: 600px; height: 300px" title="지도"></div>
 
 <h1><%=@tail.adr_title%></h1>
 <h4>작성자 : <%=@tail.adr_email%></h4>
@@ -138,4 +115,18 @@
 
 
 
+
+
+$(document).ready(function() {
+    var activeId = $(".active").attr("id").replace("tab",""); 
+    $("#content" + activeId).show();
+   
+    $(".tab a").click(function() {
+      $(".content").hide();
+      $(".tab a.active").removeClass("active");
+      $(this).addClass("active")
+      var id = $(this).closest("li").attr("id").replace("tab","");
+      $("#content" + id).show();
+   });
+});
 </script>

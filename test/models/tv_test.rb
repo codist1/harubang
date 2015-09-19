@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Adr2Test < ActiveSupport::TestCase
+class TvTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
