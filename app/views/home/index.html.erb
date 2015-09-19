@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>하루방</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 <!--------------------------------------------------------------------------------------->	
@@ -23,6 +23,7 @@
           <ul class="nav nav-pills pull-right">
             <% if user_signed_in? %>
               <li role="presentation"><a href="/home/index">승계찾기</a></li>
+              <li role="presentation"><a href="/home/board">임대찾기</a></li>
               <li role="presentation"><a id="dLabel" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                         방 등록
                                         <span class="caret"></span>
@@ -30,7 +31,7 @@
                                     
                                       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <a href="/home/enroll_1">승계등록</a><br>
-                                        <a href="#">임대등록</a>
+                                        <a href="/home/enroll_2">임대등록</a>
                                       </ul>
                                     </li>
               <li role="presentation"><a href="#" style="color: black; text-decoration: none;"><%= current_user.email %></a></li>
@@ -38,6 +39,7 @@
               <li role="presentation"><a href="/users/sign_out">Log Out</a></li><p>
             <% else %>
               <li role="presentation"><a href="/home/index">승계찾기</a></li>
+              <li role="presentation"><a href="/home/board">임대찾기</a></li>
               <li role="presentation"><a id="dLabel" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                         방 등록
                                         <span class="caret"></span>
@@ -45,7 +47,7 @@
                                     
                                       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <a href="/home/enroll_1">승계등록</a><br>
-                                        <a href="#">임대등록</a>
+                                        <a href="/home/enroll_2">임대등록</a>
                                       </ul>
                                     </li>
               <li role="presentation" id="bdslogin"><a href="/users/sign_in">Log in</a></li>
@@ -59,7 +61,7 @@
  
 
     <div class="col-md-8 nopadding">
-      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByHokvBS1FBcs14AimhJq4ovtzFxH6lkU" type="text/javascript"></script>
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByHokvBS1FBcs14AimhJq4ovtzFxH6lkU" type="text/javascript" ></script>
       <!-- GoogoleMap Asynchronously Loading the API ********************************************* -->
       <script type="text/javascript">
               var mapOptions = {
@@ -158,7 +160,7 @@
           <div class="submenu">지도 검색</div>
          
           <div id="panel">
-                                              <!-- 주소검색기 --> 
+           <!-- 주소검색기 --> 
                                      	<!-- jquery 가 필요합니다. --> 
                                   	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
                                   	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
@@ -199,8 +201,9 @@
           <div id="de_<%=p.id%>">
             <img src="<%= p.my_image.thumb %>"  align="left">
             <p><%=p.adr_title%></p>
-            <p>작성자 : <%=p.adr_email%></p>
+            <p>보증금 <%=p.y_money%> 월세 <%=p.m_money%></p>
             <p>주소 : <%=p.adr_ad%></p>
+            <p>계약 기간 <%=p.adr_before%> ~ <%=p.adr_after%></p>
             <p>상세 정보 : <%=p.adr_content%></p>
           </div>
           </a>

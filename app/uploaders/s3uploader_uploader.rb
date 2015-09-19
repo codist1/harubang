@@ -35,8 +35,12 @@ class S3uploaderUploader < CarrierWave::Uploader::Base
   version :thumb do
     process :resize_to_fit => [180, 180]
   end
-
+  
   version :thumb2 do
+    process :resize_to_fit => [330, 240]
+  end
+
+  version :thumb3 do
     process :resize_to_fit => [775, 500]
   end
 

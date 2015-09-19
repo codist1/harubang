@@ -1,9 +1,59 @@
+<!-- 데이트피커 -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all"  />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+
+
+		<script  >
+	//팝업창
+    $('#myButton').on('click', function () {
+      var $btn = $(this).button('loading')
+      // business logic...
+      $btn.button('reset')
+    });
+    
+    //데이트피커
+    $(function() {
+      var dates = $( "#from, #to" ).datepicker({
+      prevText: '이전 달',
+      nextText: '다음 달',
+      monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+      monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+      dayNames: ['일','월','화','수','목','금','토'],
+      dayNamesShort: ['일','월','화','수','목','금','토'],
+      dayNamesMin: ['일','월','화','수','목','금','토'],
+      dateFormat: 'yy-mm-dd',
+      showMonthAfterYear: true,
+      yearSuffix: '년',
+      onSelect: function( selectedDate ) {
+        var option = this.id == "from" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+      });
+    });
+    
+    //숫자만 사용가능
+    function validate(evt) {
+      var theEvent = evt || window.event;
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode( key );
+      var regex = /[0-9]|\.|\-/;
+      if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+      }
+    };
+
+		</script>
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
-  		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<!-- 다운로드받지 마시고 CDN 이용하듯 이대로 링크하세요. API 의 버그 수정 등의 변화를 일일히 적용할 필요가 없습니다. ssl 대응되므로 url 을 수정하지 마세요. -->
-		<script src="//xeno.work/roadzip/roadzip.min.js"></script>
+
 		
 		
 		       <%= form_tag "/home/write", multipart: true, method: "post" do %>
@@ -26,7 +76,7 @@
 		        <td><input class="fakey"  disabled="disabled" style="border: none; outline: none; background-color: white;" name="email" value="<%= current_user.email %>"></td>
 		    </tr>
 
-		    					    </tbody>
+		   </tbody>
 		</table>
 		    
 		    <!-- Modal -->
@@ -70,7 +120,7 @@
 
 		    <tr>
 		        <th scope="row">우편번호</th>
-		        <td><input type="text" style="width:100px;" name="zip" required  placeholder="신 우편번호는 직접 입력하셔야 합니다.">
+		        <td><input type="text" style="width:100px;" name="zip" required onkeypress='validate(event)' placeholder="신 우편번호는 직접 입력하셔야 합니다.">
 		        <!-- Button trigger modal -->
 		        	<button type="button" data-toggle="modal" data-target="#myModal" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off"> 우편번호 찾기</button>
 		        </td>
@@ -85,6 +135,15 @@
 		        <td><input type="text" style="width:373px;" class="addr" name="adr" placeholder="건물이름, 동, 호수 등을 적어주세요" required></td>
 		    </tr>
 		    <tr>
+		        <th scope="row">계약기간</th>
+ 				<td><input type="text" name="before" id="from"> ~ <input type="text" name="after" id="to"></td>
+ 				</tr>
+ 			<tr>
+		        <th scope="row">계약정보</th>
+		        <td>보증금 <input type="text" style="width:100px;" onkeypress='validate(event)' name="y_money" required  onkeypress='validate(event)'>
+		        월세 <input type="text" style="width:100px;" name="m_money" required onkeypress='validate(event)' placeholder=""></td>
+		    </tr>
+		    <tr>
 		        <th scope="row">방정보</th>
 		        <td><textarea rows="4" cols="50" name="content" placeholder="방 크기, 생활시 유의점(ex. 물이 너무 세게 나온다 등), 계약 내용(ex. 보증금 XX만원, 월세 XX만원), 가구 유무 등." ></textarea></td>
 		    </tr>
@@ -94,23 +153,17 @@
 		    </tr>
 		    <tr>
 		        <th scope="row">욕실사진</th>
-		        <td><input type="file" name="image_file" ></td>
+		        <td><input type="file" name="image_file2" ></td>
 		    </tr>
 		    <tr>
 		        <th scope="row">기타사진</th>
-		        <td><input type="file" name="image_file" ></td>
+		        <td><input type="file" name="image_file3" ></td>
 		    </tr>
 		    </tbody> 
 		</table> 
 		<input type="submit" value="방등록" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
 
-		<script>
-		  $('#myButton').on('click', function () {
-		    var $btn = $(this).button('loading')
-		    // business logic...
-		    $btn.button('reset')
-		  })
-		</script>
+
 			
 		
 		<%end%>

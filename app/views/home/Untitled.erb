@@ -1,11 +1,8 @@
-
-          
-          
-    <h1>수정하는 페이지 입니다.</h1>
-<form action="/home/update/<%= @one_adr.id %>" method="POST" style="font-family: Garamond, serif;">
+  <h1>수정하는 페이지 입니다.</h1>
+<form action="/home/update_2/<%= @one_adr.id %>" method="POST" style="font-family: Garamond, serif;">
     <tr>
 		<td>tilte</td>
-		<td><input type="text" name="new_title"  value="<%= @one_adr.adr_title %>"></td>
+		<td><input type="text" name="new_title"  value="<%= @one_adr.adr2_title %>"></td>
 	</tr><br>
 	
 	<label>
@@ -18,19 +15,19 @@
 
 			<tr>
 				<td>우편번호</td>
-				<td><input type="text" name="new_zip" value="<%= @one_adr.adr_zip %>"></td>
+				<td><input type="text" name="new_zip" value="<%= @one_adr.adr2_zip %>"></td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" class="addr" name="new_ad" value="<%= @one_adr.adr_ad %>"></td> 
+				<td><input type="text" class="addr" name="new_ad" value="<%= @one_adr.adr2_ad %>"></td> 
 			</tr>
 			<tr>
 				<td>상세주소</td>
-				<td><input type="text" class="addr" name="new_adr" value="<%= @one_adr.adr_adr %>"></td>
+				<td><input type="text" class="addr" name="new_adr" value="<%= @one_adr.adr2_adr %>"></td>
 			</tr>
 			<tr>
 			    <td>방 정보</td>
-			    <td><textarea rows="4" cols="50" name="new_content" value="<%= @one_adr.adr_content %>" ></textarea></td>
+			    <td><textarea rows="4" cols="50" name="new_content" value="<%= @one_adr.adr2_content %>" ></textarea></td>
 			</tr>
 		</tbody>
 	</table>
@@ -59,4 +56,3 @@
 		$('input.XenoFindZip').each(XenoZipFinder); // input 에 검색스크립트 연결
 	});
 	</script>
-          

@@ -2,7 +2,17 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
+  
+  <div class="field">
+    <%= f.label :name %> &nbsp &nbsp
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :number %> &nbsp &nbsp
+    <%= f.text_field :number, autofocus: true, maxlength: 30 ,:placeholder => '-를 제외 하고 번호만 입력해주세요' %>
+  </div>
+  
   <div class="field">
     <%= f.label :email %> &nbsp &nbsp
     <%= f.email_field :email, autofocus: true %>

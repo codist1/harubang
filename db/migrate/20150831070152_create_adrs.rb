@@ -9,9 +9,16 @@ class CreateAdrs < ActiveRecord::Migration
       t.string :adr_adr
       t.text :adr_content
       t.string :adr_email
+      t.date :adr_before
+      t.date :adr_after
+      t.string :y_money
+      t.string :m_money
       
       t.string :my_image
-      
+      t.string :my_image2
+      t.string :my_image3
+
+
 
       t.timestamps null: false
     end
